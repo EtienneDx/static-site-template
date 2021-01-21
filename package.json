@@ -1,0 +1,38 @@
+{
+  "name": "static-site-template",
+  "version": "1.0.0",
+  "description": "A template for creating static sites using parcel bundler",
+  "scripts": {
+    "check-types": "tsc --noemit || true",
+    "eslint": "eslint . || true",
+    "stylelint": "stylelint \"./src/scss/**/*.scss\" || true",
+    "lint": "npm run eslint && npm run check-types && npm run stylelint",
+    "prettier": "prettier --write ./src",
+    "clean": "rimraf dist",
+    "build:resources": "npx mkdirp \"./dist\" && npx copyfiles \"src/resources/**/*\" -u 2 \"dist/resources\"",
+    "start:resources": "npm run build:resources && onchange \"./src/resources\" -- npm run build:resources",
+    "build:parcel": "parcel build \"./src/html/pages/*.html\" --dist-dir \"./dist\"",
+    "start:parcel": "parcel serve \"./src/html/pages/*.html\" --dist-dir \"./dist\"",
+    "start": "rimraf \"./dist\" && run-p start:*",
+    "build": "rimraf \"./dist\" && run-p build:*"
+  },
+  "author": "EtienneDx",
+  "license": "MIT",
+  "devDependencies": {
+    "@parcel/transformer-inline": "^2.0.0-alpha.3",
+    "@parcel/validator-typescript": "^2.0.0-alpha.3",
+    "@typescript-eslint/eslint-plugin": "^4.13.0",
+    "@typescript-eslint/parser": "^4.13.0",
+    "eslint": "^7.17.0",
+    "eslint-config-prettier": "^6.10.1",
+    "npm-run-all": "^4.1.5",
+    "onchange": "^7.1.0",
+    "parcel": "^2.0.0-nightly.535",
+    "prettier": "^2.2.1",
+    "rimraf": "^3.0.2",
+    "sass": "^1.32.4",
+    "stylelint": "^13.8.0",
+    "stylelint-config-sass-guidelines": "^7.1.0",
+    "typescript": "^4.1.3"
+  }
+}
